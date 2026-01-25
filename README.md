@@ -1,14 +1,14 @@
 # MagicAirCard-for-kids
 
-# ⚠️ 注意 / Attention
+# ⚠️ 这里没有代码！/ No Code Here!
 
-**本项目的所有代码和更新均在 [master] 分支！**
-**All code and updates are located in the [master] branch!**
+**⚠️ 本项目的最新代码都在 `master` 分支！**
+**⚠️ Please check the `master` branch for the source code!**
 
-👉 [点击这里跳转到 master 分支查看代码](../tree/master)
-👉 [Click here to switch to the master branch](../tree/master)
+👇👇👇
+### [👉 点击这里跳转到 master 分支查看代码 👈](../tree/master)
+### [👉 Click here to go to the master branch 👈](../tree/master)
+👆👆👆
 
 ---
-
-> 这是一个指引页面，请切换分支以获取最新内容。
-> This is a navigation page, please switch branches to view the content.
+> (此分支仅作指引使用 / This branch is for navigation only)
