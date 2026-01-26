@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+
+body {
+    font-family: 'ZCOOL KuaiLe', cursive;
+}
+
+/* 按钮点击动画 */
+button:active {
+    transform: scale(0.95);
+}
+
+/* 视频框发光效果 */
+#video-stream {
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+}

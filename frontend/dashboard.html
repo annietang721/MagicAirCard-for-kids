@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Magic Air Card - 创作中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-pink-50 min-h-screen p-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- 顶部导航 -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-pink-500">🎨 我的创作空间</h2>
+            <div class="space-x-2">
+                <button onclick="clearCanvas()" class="bg-yellow-400 text-white px-6 py-2 rounded-full shadow hover:bg-yellow-500">🧹 清空</button>
+                <button onclick="saveCard()" class="bg-green-400 text-white px-6 py-2 rounded-full shadow hover:bg-green-500">💾 保存</button>
+            </div>
+        </div>
+
+        <!-- 主界面 -->
+        <div class="flex gap-6">
+            <!-- 左侧：模式选择 -->
+            <div class="w-1/4 space-y-4">
+                <div class="bg-white p-6 rounded-3xl shadow-md border-2 border-pink-100">
+                    <h3 class="font-bold text-gray-700 mb-4">笔触模式</h3>
+                    <button onclick="setMode('normal')" class="w-full mb-2 bg-pink-100 text-pink-600 py-2 rounded-xl hover:bg-pink-200 transition">标准模式</button>
+                    <button onclick="setMode('rainbow')" class="w-full mb-2 bg-purple-100 text-purple-600 py-2 rounded-xl hover:bg-purple-200 transition">彩虹模式</button>
+                    <button onclick="setMode('3d')" class="w-full bg-blue-100 text-blue-600 py-2 rounded-xl hover:bg-blue-200 transition">3D粗细</button>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-md border-2 border-pink-100">
+                    <h3 class="font-bold text-gray-700 mb-2">手势说明</h3>
+                    <p class="text-sm text-gray-500">☝️ 食指：移动绘图</p>
+                    <p class="text-sm text-gray-500">✊ 握拳：切换颜色</p>
+                </div>
+            </div>
+
+            <!-- 右侧：视频画布 -->
+            <div class="w-3/4 relative">
+                <div class="bg-white p-4 rounded-[2.5rem] shadow-2xl border-[10px] border-white">
+                    <!-- 这是关键：src 必须指向后端的视频流路由 -->
+                    <img id="video-stream" src="http://localhost:5000/video_feed" class="w-full rounded-[1.5rem] bg-gray-100">
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 JS -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
