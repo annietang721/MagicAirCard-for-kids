@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Magic Air Card - 开启魔法之旅</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* 定义一个漂浮动画 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-anim {
+            animation: float 3s ease-in-out infinite;
+        }
+        /* 背景渐变动画 */
+        .bg-animate {
+            background-size: 200% 200%;
+            animation: gradientMove 6s ease infinite;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 h-screen flex justify-center items-center overflow-hidden font-sans">
+
+    <div class="absolute top-10 left-10 w-32 h-32 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+    <div class="absolute top-10 right-10 w-32 h-32 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+    <div class="absolute -bottom-8 left-20 w-48 h-48 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+
+    <div class="relative bg-white/80 backdrop-blur-md p-10 rounded-[2rem] shadow-[0_20px_50px_rgba(255,182,193,0.5)] w-96 border-4 border-white">
+        
+        <div class="text-center mb-8 float-anim">
+            <div class="inline-block p-3 rounded-full bg-pink-100 mb-2">
+                <span class="text-4xl">👑</span>
+            </div>
+            <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600">
+                Magic Air Card
+            </h1>
+            <p class="text-gray-400 text-sm mt-1">✨ 欢迎来到魔法绘画世界 ✨</p>
+        </div>
+        
+        <div class="space-y-5">
+            <div class="group">
+                <label class="block text-pink-400 text-sm font-bold mb-1 ml-2">魔法代号 (账号)</label>
+                <div class="relative">
+                    <i class="fa-solid fa-wand-magic-sparkles absolute left-4 top-3.5 text-pink-300"></i>
+                    <input type="text" id="username" 
+                           class="w-full pl-10 pr-4 py-3 rounded-full border-2 border-pink-100 bg-pink-50/50 text-gray-700 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all placeholder-pink-200" 
+                           placeholder="请输入公主殿下的名字...">
+                </div>
+            </div>
+
+            <div class="group">
+                <label class="block text-purple-400 text-sm font-bold mb-1 ml-2">通关密语 (密码)</label>
+                <div class="relative">
+                    <i class="fa-solid fa-lock absolute left-4 top-3.5 text-purple-300"></i>
+                    <input type="password" id="password" 
+                           class="w-full pl-10 pr-4 py-3 rounded-full border-2 border-purple-100 bg-purple-50/50 text-gray-700 focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all placeholder-purple-200" 
+                           placeholder="嘘...是秘密哦">
+                </div>
+            </div>
+            
+            <button onclick="handleLogin()" 
+                    class="w-full mt-6 bg-gradient-to-r from-pink-400 via-pink-500 to-purple-500 text-white font-bold py-3.5 rounded-full shadow-lg shadow-pink-300/50 hover:shadow-pink-400/70 hover:scale-[1.02] active:scale-95 transition-all duration-300 transform flex justify-center items-center gap-2">
+                <span>开启魔法门</span> 
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="text-center mt-6">
+            <p class="text-xs text-gray-400">Design for Magic Kids 💖</p>
+        </div>
+    </div>
+
+    <script>
+        async function handleLogin() {
+            const usernameInput = document.getElementById('username');
+            const username = usernameInput.value;
+            
+            // 简单的动画效果：如果没填名字，摇晃输入框
+            if (!username) {
+                usernameInput.classList.add('animate-pulse', 'border-red-300');
+                setTimeout(() => usernameInput.classList.remove('animate-pulse', 'border-red-300'), 500);
+                alert("🌸 哎呀！公主殿下请留下大名~");
+                return;
+            }
+
+            try {
+                // 按钮变 loading 状态
+                const btn = document.querySelector('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 正在施法...';
+                btn.disabled = true;
+
+                const response = await fetch('http://localhost:5000/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: username })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    console.log("验证通过，魔法门开启！");
+                    // 稍微停顿一下展示动画（可选）
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 500);
+                } else {
+                    alert('💔 登录失败: ' + (data.message || '未知错误'));
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+
+            } catch (error) {
+                console.error('连接断开:', error);
+                alert("🥀 无法连接魔法水晶(后端)。\n请检查 python app.py 是否在运行！");
+                // 恢复按钮
+                document.querySelector('button').innerHTML = '<span>开启魔法门</span> <i class="fa-solid fa-arrow-right"></i>';
+                document.querySelector('button').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
